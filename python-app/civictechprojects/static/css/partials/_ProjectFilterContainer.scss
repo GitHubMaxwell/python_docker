@@ -1,0 +1,22 @@
+.ProjectFilterContainer-root {
+  background-color: $color-background-default;
+  min-height: 100%;
+  vertical-align: top;
+}
+
+.ProjectFilterContainer-root .form-control {
+  padding: 0;
+}
+
+.ProjectFilterContainer-label {
+  color: $color-text-dark;
+  font-size: 16px;
+  margin-right: 50px;
+  margin-top: 12px;
+  width: 100%;
+
+}
+
+.ProjectFilterContainer-root > div {
+  display: block;
+}

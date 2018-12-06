@@ -7,7 +7,6 @@
   "author": "Marlon Keating <marlonakeating@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node .",
     "build": "webpack --config webpack.config.js && npm run build:sass && python manage.py collectstatic --noinput",
     "build:sass": "node-sass civictechprojects/static/css/styles.scss -o civictechprojects/static/css/compiled --output-style compressed",
     "flow": "flow",
