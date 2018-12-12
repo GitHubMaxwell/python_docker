@@ -32,7 +32,7 @@ RUN apk add --no-cache musl-dev
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY ./* /app/
+# COPY . /app/
 
 # node and npm
 RUN apk add --no-cache nodejs
@@ -40,15 +40,19 @@ RUN apk add --no-cache nodejs
 # RUN npm install --production
 RUN npm install
 
-COPY webpack.config.js /app
-COPY manage.py /app
+# COPY webpack.config.js /app
+# COPY manage.py /app
+
 # COPY .env /app
 
 RUN npm run build
 # have this run the build
 
-# CMD ["python", "manage.py"]
+# install ENV Variables
+RUN source democracylab_environment_variables.sh
+
 # this command should be spinning up the server
+CMD ["python", "manage.py", "runserver"]
 
 # RUN exec commands in alpine apk-get
 # migrate the database over 
