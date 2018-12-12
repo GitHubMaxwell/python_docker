@@ -7,13 +7,14 @@
   "author": "Marlon Keating <marlonakeating@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node .",
     "build": "webpack --config webpack.config.js && npm run build:sass && python manage.py collectstatic --noinput",
     "build:sass": "node-sass civictechprojects/static/css/styles.scss -o civictechprojects/static/css/compiled --output-style compressed",
     "flow": "flow",
     "postinstall": "webpack --config webpack.config.js && python manage.py collectstatic --noinput"
   },
   "dependencies": {
+    "@material-ui/core": "^3.5.1",
+    "@material-ui/icons": "^3.0.1",
     "bluebird": "^3.5.2",
     "django-react-csrftoken": "^1.0.4",
     "flow-bin": "^0.59.0",
@@ -29,8 +30,7 @@
     "react-dom": "^16.4.2",
     "react-moment": "^0.7.9",
     "react-select": "^2.0.0",
-    "webpack-dev-server": "^2.11.2",
-    "pg-promise": "^8.5.2"
+    "webpack-dev-server": "^2.11.2"
   },
   "devDependencies": {
     "aws-sdk": "^2.289.0",

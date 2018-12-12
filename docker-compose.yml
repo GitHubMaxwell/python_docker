@@ -11,10 +11,14 @@ services:
       - .env
     environment:
       - POSTGRES_HOST=pg
+    volumes:
+      - code-base:/app
   pg:
     image: postgres:alpine
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - "./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
+      - code-base:
     ports:
       - "5432:5432"
     env_file:
@@ -22,5 +26,9 @@ services:
 
 volumes:
   pgdata:
+  code-base:
+    - "./python-app:/"
 # on Alpine Linux: apk add postgresql-dev
 # Error: pg_config executable not found.
+
+#volumize the entire codebase in order to share across services

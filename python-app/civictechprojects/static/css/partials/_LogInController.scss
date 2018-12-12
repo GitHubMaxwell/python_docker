@@ -1,0 +1,45 @@
+.LogInController-root {
+  background-color: $color-background-light;
+  border: solid 1px $color-grey-frame-border;
+  font-weight: 300;
+  width: 90%;
+  max-width: 800px;
+  margin: 168px auto;
+  padding: 58px 5%;
+}
+
+.LogInController-input {
+  border: solid 1px $color-grey-frame-border;
+  height: 40px;
+  margin-bottom: 10px;
+  width: 100%;
+  min-width: 200px;
+}
+
+.LogInController-greeting {
+  margin-bottom: 27px;
+  min-width: 200px;
+}
+
+.LogInController-signInButton {
+  background-color: $color-green;
+  border: none;
+  border-radius: 5px;
+  color: $color-text-light;
+  cursor: pointer;
+  font-size: 19px;
+  height: 42px;
+  margin-left: 40%;
+  width: auto;
+}
+
+.LogInController-signInButton:disabled {
+  background-color: $color-grey-disabled;
+  cursor: no-drop;
+}
+
+.LogInController-forgotPassword {
+  text-align: center;
+  float: right;
+  font-size: 13px;
+}

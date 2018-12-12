@@ -1,0 +1,49 @@
+{
+  "name": "CivicTechExchange",
+  "scripts": {
+  },
+  "env": {
+    "AWS_ACCESS_KEY_ID": {
+      "required": true
+    },
+    "AWS_SECRET_ACCESS_KEY": {
+      "required": true
+    },
+    "EMAIL_HOST_PASSWORD": {
+      "required": true
+    },
+    "S3_BUCKET": {
+      "required": true
+    },
+    "DJANGO_DEBUG": {
+      "required": true
+    },
+    "ADMIN_EMAIL": {
+      "required": true
+    },
+    "DJANGO_SECRET_KEY": {
+      "required": true,
+      "generator": "secret"
+    },
+    "PROTOCOL_DOMAIN": {
+      "required": true
+    },
+    "DISABLE_COLLECTSTATIC": {
+      "description": "Don't run python manage.py collectstatic --noinput on deploy",
+      "value": "1"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ]
+}
