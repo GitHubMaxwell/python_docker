@@ -11,23 +11,28 @@ services:
       - .env
     environment:
       - POSTGRES_HOST=pg
-    volumes:
-      - code-base:/app
+
+  # pg:
+  #   image: postgres:alpine
+  #   volumes:
+  #     - pgdata:/var/lib/postgresql/data
+  #     - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+  #     - ./python-app:/src/
+  #   ports:
+  #     - "5432:5432"
+  #   env_file:
+  #     - .env
   pg:
-    image: postgres:alpine
+    build:
+      context: ./
+      dockerfile: postgres/Dockerfile
     volumes:
       - pgdata:/var/lib/postgresql/data
-      - "./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
-      - code-base:
     ports:
       - "5432:5432"
-    env_file:
-      - .env
 
 volumes:
   pgdata:
-  code-base:
-    - "./python-app:/"
 # on Alpine Linux: apk add postgresql-dev
 # Error: pg_config executable not found.
 
