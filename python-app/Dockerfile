@@ -32,7 +32,7 @@ RUN apk add --no-cache musl-dev
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-# COPY . /app/
+COPY . /app/
 
 # node and npm
 RUN apk add --no-cache nodejs
@@ -45,14 +45,18 @@ RUN npm install
 
 # COPY .env /app
 
-RUN npm run build
-# have this run the build
-
 # install ENV Variables
 RUN source democracylab_environment_variables.sh
 
+RUN npm run build
+# have this run the build
+
+
+# need ENTRYPOINT command to stage the command that will run at the beginning of the exec phase
+
 # this command should be spinning up the server
 CMD ["python", "manage.py", "runserver"]
+# CMD ["python3", "manage.py", "runserver"]
 
 # RUN exec commands in alpine apk-get
 # migrate the database over 
