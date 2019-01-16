@@ -1,10 +1,10 @@
-version: "3"
+version: '3'
 services:
   web:
     build: python-app
     restart: always
     ports:
-      - "3000:3000"
+      - '3000:3000'
     depends_on:
       - pg
     env_file:
@@ -12,28 +12,22 @@ services:
     environment:
       - POSTGRES_HOST=pg
 
-  # pg:
-  #   image: postgres:alpine
-  #   volumes:
-  #     - pgdata:/var/lib/postgresql/data
-  #     - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
-  #     - ./python-app:/src/
-  #   ports:
-  #     - "5432:5432"
-  #   env_file:
-  #     - .env
   pg:
     build:
       context: ./
       dockerfile: postgres/Dockerfile
-    volumes:
-      - pgdata:/var/lib/postgresql/data
+    restart: always
+    # volumes:
+    #   - pgdata:/var/lib/postgresql/data
+    environment:
+      # POSTGRES_PASSWORD: p0stgres!
+      POSTGRES_PASSWORD: password
+    #   POSTGRES_USER: postgres
+    # volumes:
+    #   - ./init:/docker-entrypoint-initdb.d
+    command: /bin/bash /migrate.sh
     ports:
-      - "5432:5432"
-
-volumes:
-  pgdata:
-# on Alpine Linux: apk add postgresql-dev
-# Error: pg_config executable not found.
-
-#volumize the entire codebase in order to share across services
+      - '5432:5432'
+      # run container its runs entrypoint first THEN CMD (always in this order)
+      # postgres official has its own entrypoint and CMD and we are overwritign it maybe
+      # we are overriding the ENTRYPOINT

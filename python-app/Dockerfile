@@ -55,7 +55,7 @@ RUN npm run build
 # need ENTRYPOINT command to stage the command that will run at the beginning of the exec phase
 
 # this command should be spinning up the server
-CMD ["python", "manage.py", "runserver"]
+# CMD ["python", "manage.py", "runserver"]
 # CMD ["python3", "manage.py", "runserver"]
 
 # RUN exec commands in alpine apk-get
@@ -69,3 +69,5 @@ CMD ["python", "manage.py", "runserver"]
 # history -a && gnome-terminal
 
 # python manage.py runserver
+
+EXPOSE 

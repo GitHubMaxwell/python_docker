@@ -2,21 +2,18 @@ FROM postgres:alpine
 
 # WORKDIR /
 
-# RUN mkdir 
 # VOLUME ["/var/lib/postgresql/data","../python-app"]
 
 COPY python-app /
+COPY init/migrate.sh /
 
-# installing git and then pulling down the remote repo per container build to allow for updates extensibilities
-
-# RUN pwd
-
-# RUN ls
+# do this in the docker compose in the pg volumes
+# COPY docker-entrypoint-initdb.d/migrate.sh docker-entrypoint-initdb.d
 
 #install python 3
 RUN apk add python3-dev
 
-#rename python3 to python
+# rename python3 to python
 RUN ln -s $(which python3) /bin/python
 # check version of python
 RUN python --version
@@ -29,42 +26,39 @@ RUN apk add py3-pip
 RUN apk add --no-cache gcc
 RUN apk add --no-cache musl-dev
 RUN pip3 install --no-cache-dir -r requirements.txt
-# RUN apk add nodejs
-RUN apk add --update nodejs nodejs-npm
 # install node
-RUN npm install
+RUN apk add --update nodejs nodejs-npm
 # install project dependencies
-USER postgres
+RUN npm install
 # change user to be "postgres"
 
-RUN cp /usr/local/share/postgresql/postgresql.conf.sample /var/lib/postgresql/data/postgresql.conf 
+# psql ocnfig files - not sure if you need
+# RUN cp /usr/local/share/postgresql/postgresql.conf.sample /var/lib/postgresql/data/postgresql.conf
 
-# RUN postgres
-
-# And add ``listen_addresses`` to ``/etc/postgresql/9.3/main/postgresql.conf``
-# RUN echo "listen_addresses='*'" >> /etc/postgresql/9.3/main/postgresql.conf
-# RUN echo "listen_addresses='*'"
-
+# RUN chown postgres /var/lib/postgresql/data/postgresql.conf
+# -R for recursive
+# 750 for octal permissions code
+# RUN chmod -R 750 /var/lib/postgresql/data
+# RUN chmod -R u=rwx,g=rx /var/lib/postgresql/data
 
 # USER root
-# run postgres which needs user to be postgres
-# after postgres installation chagne user back root
-# sourcing env vars first
-# have these commands in the same line in order to run in the same context and therefore share the env var otherwise the env state is destroyed
 
-# change WORKDIR or something in order to 
-# RUN source democracylab_environment_variables.sh && npm run build
-# RUN cd ../../../
-# RUN pwd
-
-# install the ENV variables
-# doesnt work / put in SH file
-
+# import env variables
 # RUN source democracylab_environment_variables.sh
+
 # grab the shell commands to populate the postgres DB
 
 # populate the database
 # CMD ["python", "manage.py", "migrate"]
 # RUN python manage.py migrate
 
+# COPY init/*.sh /docker-entrypoint-initdb.d/
+
+# wont run migrate.sh without this??
+# ENTRYPOINT ??? initdb
+
+# ENTRYPOINT ["docker-entrypoint.sh"]
 EXPOSE 5432
+
+USER postgres
+# CMD ["/bin/bash","/migrate.sh"]

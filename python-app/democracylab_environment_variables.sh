@@ -13,7 +13,8 @@ export PROTOCOL_DOMAIN=http://127.0.0.1:8000
 export ADMIN_EMAIL=marlonakeating+1111@gmail.com
 
 # Secret key used to encrypt session tokens
-export DJANGO_SECRET_KEY="d!01@gn+%1ql1n(*)8xo+nx$$&n@mg$0_)9g+!(t-2vncaq!j8"
+# export DJANGO_SECRET_KEY="d!01@gn+%1ql1n(*)8xo+nx$$&n@mg$0_)9g+!(t-2vncaq!j8"
+export DJANGO_SECRET_KEY="secret"
 
 # Whether to show django debug info page on errors
 export DJANGO_DEBUG=True
